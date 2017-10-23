@@ -13,9 +13,16 @@ type alias ContentBlock =
     }
 
 
+
+-- HACK: Hacking around the fact that empty divs current get empty space
+
+
 textLength : ContentBlock -> Int
 textLength { text } =
-    String.length text
+    if text == " " then
+        0
+    else
+        String.length text
 
 
 isEmpty : ContentBlock -> Bool
