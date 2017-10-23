@@ -62,12 +62,24 @@ document.addEventListener('selectionchange', function() {
     return
   }
 
+  let isBackward = false
+
+  const position = anchorNode.compareDocumentPosition(focusNode)
+  if (position & 0x02) {
+    // Block nodes are backward
+    isBackward = true
+  } else if (position === 0 && anchorOffset > focusOffset) {
+    // Selection is within same block and offsets at backward
+    isBackward = true
+  }
+
   const state = {
     anchorKey: findBlockKey(anchorNode),
     focusKey: findBlockKey(focusNode),
     anchorOffset,
     focusOffset,
     isCollapsed,
+    isBackward,
   }
 
   app.ports.selectionChange.send(state)
