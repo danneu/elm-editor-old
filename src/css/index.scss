@@ -1,0 +1,15 @@
+.editor {
+  border: 1px solid black;
+  white-space: pre-wrap;
+}
+
+.block {
+  border: 1px solid black;
+
+  // Prevent empty block from collapsing to 0 height
+  // FIXME: This is a pointless hack since I realize that empty
+  // divs cannot be selected with, say, arrow keys.
+  &::after {
+    content: ' ';
+  }
+}
